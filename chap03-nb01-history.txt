@@ -1,0 +1,64 @@
+    "# gzipファイルを読み込む\n",
+    "with gzip.open(GZ_FILE, 'rt', encoding='utf-8') as f: # gzipファイルは、解凍せずに直接読み込める\n",
+    "    for line in f:\n",
+    "        obj = json.loads(line) # objはdict型(keys=title,text)\n",
+    "        if obj['title'] == 'イギリス':\n",
+    "            print(obj['text'])\n",
+    "            break"
+
+
+
+        "def extract_text(title):\n",
+    "    with gzip.open(GZ_FILE, 'rt', encoding='utf-8') as f: # gzipファイルは、解凍せずに直接読み込める\n",
+    "        for line in f:\n",
+    "            obj = json.loads(line) # objはdict型(keys=title,text)\n",
+    "            if obj['title'] == title:\n",
+    "                return obj['text']\n",
+    "    return None\n",
+    "\n",
+    "text = extract_text('イギリス')"
+
+
+        "text_rows = text.split('\\n')\n",
+    "for row in text_rows:\n",
+    "    if 'Category' in row: # Sisterlinks見たいのもあるので、Categoryのみに絞る場合は、[[Category: とする\n",
+    "        print(row)"
+
+
+        "# 正規表現\n",
+    "pattern = re.compile(r'\\[\\[Category:(.*)\\]\\]') # (.*)は任意の文字列のキャプチャ\n",
+    "for row in text_rows:\n",
+    "    match = pattern.match(row)\n",
+    "    if match:\n",
+    "        print(match.group(1))"
+
+
+        "正規表現一生覚えられない病ー\n",
+    "- どんなことが正規表現できるのか把握して、その都度調べた時に良し悪しがわかるくらいの知識はつけておく"
+
+
+
+        "for row in text_rows:\n",
+    "    if 'Category' in row:\n",
+    "        category = row.replace('[[Category:', '').replace('|*', '').replace(']]', '')\n",
+    "        print(category)"
+
+
+
+        "# 正規表現\n",
+    "pattern = re.compile(r'\\[\\[Category:(.*)\\]\\]') # (.*)は任意の文字列のキャプチャ\n",
+    "for row in text_rows:\n",
+    "    match = pattern.match(row)\n",
+    "    if match:\n",
+    "        print(match.group(1))"
+
+
+
+        "# 正規表現\n",
+    "pattern = re.compile(r'(=+)\\s*(.*?)\\s*(=+)') # (.*?)は任意の文字列の最小のキャプチャ\n",
+    "for row in text_rows:\n",
+    "    match = pattern.match(row)\n",
+    "    if match:\n",
+    "        print(match.group(2), len(match.group(1)) - 1)\n",
+    "\n",
+    "# 最小マッチングと最大マッチングを組み合わせることで、==を含まない文字列を抽出できる"

@@ -1,2 +1,3 @@
-# dataディレクトリ内のファイル
-data/*
+# dataディレクトリ内の配布ファイル
+data/jawiki-country.json.gz
+data/popular-names.txt
